@@ -1,4 +1,7 @@
-FROM n8nio/n8n
+FROM node:20-alpine
+
+RUN apk add --no-cache tini bash \
+ && npm install -g n8n
 
 ENV N8N_HOST=0.0.0.0
 ENV N8N_PORT=5678
@@ -9,6 +12,9 @@ ENV GENERIC_TIMEZONE=America/Guayaquil
 EXPOSE 5678
 
 COPY workflows /workflows
-COPY start-n8n.js /start-n8n.js
+COPY start.sh /start.sh
 
-CMD ["node", "/start-n8n.js"]
+RUN chmod +x /start.sh
+
+ENTRYPOINT ["/sbin/tini", "--"]
+CMD ["/bin/sh", "/start.sh"]
