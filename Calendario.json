@@ -1,0 +1,77 @@
+{
+  "name": "Calendario",
+  "nodes": [
+    {
+      "parameters": {
+        "httpMethod": "POST",
+        "path": "spectra-teams",
+        "options": {}
+      },
+      "type": "n8n-nodes-base.webhook",
+      "typeVersion": 2.1,
+      "position": [
+        0,
+        0
+      ],
+      "id": "14b05229-e5fe-4202-8878-285f2d7981bc",
+      "name": "Webhook",
+      "webhookId": "2d782942-9a92-4184-bbb9-22e6e1a77236"
+    },
+    {
+      "parameters": {
+        "calendar": {
+          "__rl": true,
+          "value": "dbbalarezo@gmail.com",
+          "mode": "list",
+          "cachedResultName": "dbbalarezo@gmail.com"
+        },
+        "start": "={{ new Date($json.body.start).toISOString() }}",
+        "end": "={{ new Date($json.body.end).toISOString() }}",
+        "additionalFields": {
+          "summary": "={{$json.body.title}}"
+        }
+      },
+      "type": "n8n-nodes-base.googleCalendar",
+      "typeVersion": 1.3,
+      "position": [
+        208,
+        0
+      ],
+      "id": "4bbf6aac-7ed5-4a67-8ddc-d26e02b3ae15",
+      "name": "Create an event",
+      "credentials": {
+        "googleCalendarOAuth2Api": {
+          "id": "66p2zkRF2o6RX1pP",
+          "name": "Google Calendar account"
+        }
+      }
+    }
+  ],
+  "pinData": {},
+  "connections": {
+    "Webhook": {
+      "main": [
+        [
+          {
+            "node": "Create an event",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    }
+  },
+  "active": true,
+  "settings": {
+    "executionOrder": "v1",
+    "binaryMode": "separate",
+    "availableInMCP": false
+  },
+  "versionId": "260a8152-b8e6-419c-8e66-6b161ccb5ac7",
+  "meta": {
+    "templateCredsSetupCompleted": true,
+    "instanceId": "64b72cae0316b4be1665c44b9595433fbae252b15019ac2244ef29b4a7a8f070"
+  },
+  "id": "hfhWtsftCYFF1Srn",
+  "tags": []
+}
