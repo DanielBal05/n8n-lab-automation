@@ -8,8 +8,7 @@ ENV GENERIC_TIMEZONE=America/Guayaquil
 
 EXPOSE 5678
 
-# copiar workflows del repo
 COPY workflows /workflows
+COPY start-n8n.js /start-n8n.js
 
-# importar workflows y arrancar n8n
-CMD n8n import:workflow --input=/workflows --separate && n8n start
+CMD ["node", "/start-n8n.js"]
