@@ -1,0 +1,131 @@
+{
+  "name": "My workflow 3",
+  "nodes": [
+    {
+      "parameters": {
+        "path": "lab/listar",
+        "responseMode": "responseNode",
+        "options": {}
+      },
+      "type": "n8n-nodes-base.webhook",
+      "typeVersion": 2.1,
+      "position": [
+        0,
+        0
+      ],
+      "id": "4e254756-b9a8-42a9-b5f9-e0c8e481e2f0",
+      "name": "Webhook",
+      "webhookId": "441ada93-c433-4561-957a-1301f788d576"
+    },
+    {
+      "parameters": {
+        "documentId": {
+          "__rl": true,
+          "value": "1qn03Xku9pT1_Uw-74fDAutxe1kbjcEJzyPnNlHIpOpE",
+          "mode": "list",
+          "cachedResultName": "Prestamos Lab",
+          "cachedResultUrl": "https://docs.google.com/spreadsheets/d/1qn03Xku9pT1_Uw-74fDAutxe1kbjcEJzyPnNlHIpOpE/edit?usp=drivesdk"
+        },
+        "sheetName": {
+          "__rl": true,
+          "value": "gid=0",
+          "mode": "list",
+          "cachedResultName": "Hoja 1",
+          "cachedResultUrl": "https://docs.google.com/spreadsheets/d/1qn03Xku9pT1_Uw-74fDAutxe1kbjcEJzyPnNlHIpOpE/edit#gid=0"
+        },
+        "options": {}
+      },
+      "type": "n8n-nodes-base.googleSheets",
+      "typeVersion": 4.7,
+      "position": [
+        208,
+        0
+      ],
+      "id": "77902d24-6aa5-48b5-8cc0-8e3fa149c8e9",
+      "name": "Get row(s) in sheet",
+      "credentials": {
+        "googleSheetsOAuth2Api": {
+          "id": "vtECRbP6o6s6qp1v",
+          "name": "Google Sheets account"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "respondWith": "json",
+        "responseBody": "={{ $json }}",
+        "options": {}
+      },
+      "type": "n8n-nodes-base.respondToWebhook",
+      "typeVersion": 1.5,
+      "position": [
+        624,
+        0
+      ],
+      "id": "2565b708-05d6-4052-8e7b-e2704e339ee5",
+      "name": "Respond to Webhook"
+    },
+    {
+      "parameters": {
+        "jsCode": "const rows = $input.all().map(i => i.json);\n\nreturn [\n  {\n    json: {\n      ok: true,\n      items: rows\n    }\n  }\n];"
+      },
+      "type": "n8n-nodes-base.code",
+      "typeVersion": 2,
+      "position": [
+        416,
+        0
+      ],
+      "id": "491c4050-6d97-4b60-9055-4b1826f0dda3",
+      "name": "Code in JavaScript"
+    }
+  ],
+  "pinData": {},
+  "connections": {
+    "Webhook": {
+      "main": [
+        [
+          {
+            "node": "Get row(s) in sheet",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Get row(s) in sheet": {
+      "main": [
+        [
+          {
+            "node": "Code in JavaScript",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Code in JavaScript": {
+      "main": [
+        [
+          {
+            "node": "Respond to Webhook",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    }
+  },
+  "active": true,
+  "settings": {
+    "executionOrder": "v1",
+    "binaryMode": "separate",
+    "availableInMCP": false
+  },
+  "versionId": "99199755-c6af-4f25-af1c-bbadfd7523cd",
+  "meta": {
+    "templateCredsSetupCompleted": true,
+    "instanceId": "64b72cae0316b4be1665c44b9595433fbae252b15019ac2244ef29b4a7a8f070"
+  },
+  "id": "N4AlqaWpWK2uVFx5",
+  "tags": []
+}
