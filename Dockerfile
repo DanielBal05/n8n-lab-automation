@@ -7,3 +7,9 @@ ENV NODE_ENV=production
 ENV GENERIC_TIMEZONE=America/Guayaquil
 
 EXPOSE 5678
+
+# copiar workflows del repo
+COPY workflows /workflows
+
+# importar workflows y arrancar n8n
+CMD n8n import:workflow --input=/workflows --separate && n8n start
