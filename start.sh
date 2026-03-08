@@ -18,5 +18,8 @@ if [ -d /workflows ]; then
   done
 fi
 
+echo "Activando workflows..."
+n8n update:workflow --all --active=true || echo "No se pudieron activar todos los workflows, continúo..."
+
 echo "Iniciando n8n..."
 exec n8n start
